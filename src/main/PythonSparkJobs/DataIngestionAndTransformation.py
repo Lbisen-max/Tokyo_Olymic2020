@@ -18,6 +18,7 @@ coachesDataIngest = config.get('path','coachesDataIngest')
 medalsDataIngest = config.get('path','medalsDataIngest')
 medalsTotalDataIngest = config.get('path','medalsTotalDataIngest')
 technicalOfficialsDataIngest = config.get('path','technicalOfficialsDataIngest')
+outputlocation = config.get("path","transFormDataPath")
 
 # reading the schema from config.ini file
 athletsDataSchema = config.get('schema','athletsDataSchema')
@@ -55,12 +56,15 @@ medalLandingFile = medalLandingFile.drop('athlete_link')
 technicalOfficialsLandingFile = technicalOfficialsLandingFile.drop('url')
 
 # Birthdate is with time stamp hence removing timestamp and keeping only dob
-athletLandingFile = athletLandingFile.withColumn('birth_date',to_date("birth_date"))\
-                   .withColumn('birth_date',date_format("birth_date","dd/MM/yyyy"))
-coachesLandingFile = coachesLandingFile.withColumn("birth_date",date_format('birth_date',"dd/MM/yyyy"))
-medalLandingFile   = medalLandingFile.withColumn("medal_date",date_format("medal_date","dd/MM/yyyy"))\
+athletLandingFile = athletLandingFile.withColumn('birth_date',date_format("birth_date","dd/MM/yyyy"))\
+                    .withColumn('birth_date',to_date("birth_date"))
+coachesLandingFile = coachesLandingFile.withColumn("birth_date",date_format('birth_date',"dd/MM/yyyy"))\
+                    .withColumn('birth_date',to_date("birth_date"))
+medalLandingFile = medalLandingFile.withColumn("medal_date",date_format("medal_date","dd/MM/yyyy"))\
+                    .withColumn('medal_date',to_date("medal_date"))\
                     .withColumn("athlete_sex",regexp_replace("athlete_sex","X","F"))
-technicalOfficialsLandingFile = technicalOfficialsLandingFile.withColumn("birth_date",date_format("birth_date","dd/MM/yyyy"))
+technicalOfficialsLandingFile = technicalOfficialsLandingFile.withColumn("birth_date",date_format("birth_date","dd/MM/yyyy"))\
+                    .withColumn('birth_date',to_date("birth_date"))
 
 print("**********************athlet data***************")
 athletLandingFile.show(5)
@@ -74,8 +78,80 @@ print("**********************technical official data***************")
 technicalOfficialsLandingFile.show(5)
 
 # Prining schema
-medalTotalLandingFile.printSchema()
+athletLandingFile.printSchema()
 coachesLandingFile.printSchema()
 medalLandingFile.printSchema()
 medalTotalLandingFile.printSchema()
 technicalOfficialsLandingFile.printSchema()
+
+# Writing the data into local
+
+athletLandingFile.write\
+    .option("header",True)\
+    .mode("overwrite")\
+    .csv(outputlocation+"athletLandingFile")
+
+athletLandingFile.write\
+    .option("header",True)\
+    .mode("overwrite")\
+    .csv(outputlocation+"coachesLandingFile")
+
+athletLandingFile.write\
+    .option("header",True)\
+    .mode("overwrite")\
+    .csv(outputlocation+"medalLandingFile")
+
+
+athletLandingFile.write\
+    .option("header",True)\
+    .mode("overwrite")\
+    .csv(outputlocation+"medalTotalLandingFile")
+
+athletLandingFile.write\
+    .option("header",True)\
+    .mode("overwrite")\
+    .csv(outputlocation+"technicalOfficialsLandingFile")
+
+# Writing the data into mysql server
+
+#**********************
+athletLandingFile.write.format('jdbc').options(
+      url='jdbc:mysql://localhost:3306/tokyoolympic2020',
+      driver='com.mysql.jdbc.Driver',
+      dbtable='athlets',
+      user='root',
+      password='root').mode('overwrite').save()
+
+
+coachesLandingFile.write.format('jdbc').options(
+      url='jdbc:mysql://localhost:3306/tokyoolympic2020',
+      driver='com.mysql.jdbc.Driver',
+      dbtable='coachs',
+      user='root',
+      password='root').mode('overwrite').save()
+
+
+medalLandingFile.write.format('jdbc').options(
+      url='jdbc:mysql://localhost:3306/tokyoolympic2020',
+      driver='com.mysql.jdbc.Driver',
+      dbtable='medals',
+      user='root',
+      password='root').mode('overwrite').save()
+
+medalTotalLandingFile.write.format('jdbc').options(
+      url='jdbc:mysql://localhost:3306/tokyoolympic2020',
+      driver='com.mysql.jdbc.Driver',
+      dbtable='totalmedals',
+      user='root',
+      password='root').mode('overwrite').save()
+
+
+technicalOfficialsLandingFile.write.format('jdbc').options(
+      url='jdbc:mysql://localhost:3306/tokyoolympic2020',
+      driver='com.mysql.jdbc.Driver',
+      dbtable='technicalpeopel',
+      user='root',
+      password='root').mode('overwrite').save()
+
+print("transform data write into new location : MYSQL server")
+

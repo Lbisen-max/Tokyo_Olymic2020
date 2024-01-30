@@ -1,5 +1,5 @@
 # all necessary functions
-from pyspark.sql.types import StructType,StructField,StringType,IntegerType,TimestampType,DoubleType
+from pyspark.sql.types import StructType,StructField,StringType,IntegerType,TimestampType,DoubleType,DateType
 from pyspark.sql.functions import *
 
 # defining function so that it can read schema
@@ -7,6 +7,7 @@ def schema_function(schema_arg):
     dict_val = {
         "StringType()" : StringType(),
         "IntegerType()" : IntegerType(),
+        "DateType()" : DateType(),
         "TimestampType()" : TimestampType(),
         "DoubleType()" : DoubleType()
     }
