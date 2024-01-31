@@ -56,15 +56,11 @@ medalLandingFile = medalLandingFile.drop('athlete_link')
 technicalOfficialsLandingFile = technicalOfficialsLandingFile.drop('url')
 
 # Birthdate is with time stamp hence removing timestamp and keeping only dob
-athletLandingFile = athletLandingFile.withColumn('birth_date',date_format("birth_date","dd/MM/yyyy"))\
-                    .withColumn('birth_date',to_date("birth_date"))
-coachesLandingFile = coachesLandingFile.withColumn("birth_date",date_format('birth_date',"dd/MM/yyyy"))\
-                    .withColumn('birth_date',to_date("birth_date"))
-medalLandingFile = medalLandingFile.withColumn("medal_date",date_format("medal_date","dd/MM/yyyy"))\
-                    .withColumn('medal_date',to_date("medal_date"))\
+athletLandingFile = athletLandingFile.withColumn('birth_date', to_date("birth_date", 'dd/MM/yyyy'))
+coachesLandingFile = coachesLandingFile.withColumn('birth_date',to_date("birth_date",'dd/MM/yyyy'))
+medalLandingFile = medalLandingFile.withColumn("medal_date",to_date("medal_date","dd/MM/yyyy"))\
                     .withColumn("athlete_sex",regexp_replace("athlete_sex","X","F"))
-technicalOfficialsLandingFile = technicalOfficialsLandingFile.withColumn("birth_date",date_format("birth_date","dd/MM/yyyy"))\
-                    .withColumn('birth_date',to_date("birth_date"))
+technicalOfficialsLandingFile = technicalOfficialsLandingFile.withColumn('birth_date',to_date("birth_date"))
 
 print("**********************athlet data***************")
 athletLandingFile.show(5)
@@ -91,30 +87,30 @@ athletLandingFile.write\
     .mode("overwrite")\
     .csv(outputlocation+"athletLandingFile")
 
-athletLandingFile.write\
+coachesLandingFile.write\
     .option("header",True)\
     .mode("overwrite")\
     .csv(outputlocation+"coachesLandingFile")
 
-athletLandingFile.write\
+medalLandingFile.write\
     .option("header",True)\
     .mode("overwrite")\
     .csv(outputlocation+"medalLandingFile")
 
 
-athletLandingFile.write\
+medalTotalLandingFile.write\
     .option("header",True)\
     .mode("overwrite")\
     .csv(outputlocation+"medalTotalLandingFile")
 
-athletLandingFile.write\
+technicalOfficialsLandingFile.write\
     .option("header",True)\
     .mode("overwrite")\
     .csv(outputlocation+"technicalOfficialsLandingFile")
 
-# Writing the data into mysql server
+#### Writing the data into mysql server
 
-#**********************
+
 athletLandingFile.write.format('jdbc').options(
       url='jdbc:mysql://localhost:3306/tokyoolympic2020',
       driver='com.mysql.jdbc.Driver',
