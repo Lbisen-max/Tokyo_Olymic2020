@@ -32,6 +32,38 @@ eachcoeMedals = mycursor.fetchall()
 print(eachcoeMedals)
 
 
+# 3. No of Medals won by India
 
-# 3
+mycursor.execute('''
+select * 
+from medals
+where country in ('India');
+''')
+totalMedalsofIndia = mycursor.fetchall()
+print(totalMedalsofIndia)
+
+
+# 4. Top 5 countries with highest number of coaches
+
+mycursor.execute('''
+SELECT Country_code , count(name) as 'TotalCoaches'
+from coachs
+group by Country_code
+order by TotalCoaches desc
+Limit 5;
+''')
+TophighestnumberofCoaches = mycursor.fetchall()
+print(TophighestnumberofCoaches)
+
+
+# 6. Top 10  country with gold medals
+
+mycursor.execute('''
+select Country , Gold_Medal
+from totalmedals
+order by Gold_Medal desc
+limit 10;
+''')
+top10GoldwinnerCOE = mycursor.fetchall()
+print(top10GoldwinnerCOE)
 
