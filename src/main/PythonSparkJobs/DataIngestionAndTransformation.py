@@ -59,7 +59,7 @@ technicalOfficialsLandingFile = technicalOfficialsLandingFile.drop('url')
 athletLandingFile = athletLandingFile.withColumn('birth_date', to_date("birth_date", 'dd/MM/yyyy'))
 coachesLandingFile = coachesLandingFile.withColumn('birth_date',to_date("birth_date",'dd/MM/yyyy'))
 medalLandingFile = medalLandingFile.withColumn("medal_date",to_date("medal_date","dd/MM/yyyy"))\
-                    .withColumn("athlete_sex",regexp_replace("athlete_sex","X","F"))
+                      .withColumn("athlete_sex",regexp_replace("athlete_sex","X","W"))
 technicalOfficialsLandingFile = technicalOfficialsLandingFile.withColumn('birth_date',to_date("birth_date"))
 
 print("**********************athlet data***************")
