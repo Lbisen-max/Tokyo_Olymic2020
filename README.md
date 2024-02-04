@@ -33,7 +33,12 @@ Quality Investigation : The main goal to have a global view on the datasets with
 ### 3. Data Preparation
 After structure and quality Investigation it has observed that columns like 'birth_place','birth_country','residence_place','residence_country','url','height_m/ft' does not look generalize hence this has been removed.
 
-# Folder Structure 
+### Schema Overview
+
+![image](https://github.com/Lbisen-max/Tokyo_Olymic2020/assets/79071673/32350306-8f29-4286-ba09-0034ae903ea9)
+
+
+### Folder Structure 
 
 ├── Tokyo_Olymic2020
 │   ├── src
@@ -47,5 +52,8 @@ After structure and quality Investigation it has observed that columns like 'bir
 |   |    |      ├── DataIngestionAndTransformation.py
 |   ├── Transform_Data
 
+
+
 ### Data Ingestion and Data Transformation using Pyspark
+
 
