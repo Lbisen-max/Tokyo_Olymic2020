@@ -34,22 +34,18 @@ Quality Investigation : The main goal to have a global view on the datasets with
 After structure and quality Investigation it has observed that columns like 'birth_place','birth_country','residence_place','residence_country','url','height_m/ft' does not look generalize hence this has been removed.
 
 # Folder Structure 
-Tokyo_Olymic2020
-├── src
-│   ├── main/
-│   │    ├──ProjectConfig
-│   │    └── Config
-│   │    │      ├── aws_delete.py
-│   │    │      ├── database_delete.py
-│   │    │      └── local_file_delete.py
-│   │    └── download/
-│   │    │      └── aws_file_download.py
-│   │    └── move/
-│   │    │      └── move_files.py
-│   │    └── read/
-│   │    │      ├── aws_read.py
-│   │    │      └── database_read.py
-│   │    └── transformations/
+
+├── Tokyo_Olymic2020
+│   ├── src
+│   │    ├──main
+│   │    |    ├── ProjectConfig
+|   |    |           ├── Config.ini
+|   |    |           ├── sqlConnector.py
+│   │    │    ├── PythonSparkJobs
+│   │    │      ├── __init__.py
+|   |    |      ├── ConfigFunction.py
+|   |    |      ├── DataIngestionAndTransformation.py
+|   ├── Transform_Data
 
 ### Data Ingestion and Data Transformation using Pyspark
 
