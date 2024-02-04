@@ -40,20 +40,12 @@ After structure and quality Investigation it has observed that columns like 'bir
 
 ### Folder Structure 
 
-├── Tokyo_Olymic2020
-│   ├── src
-│   │    ├──main
-│   │    |    ├── ProjectConfig
-|   |    |           ├── Config.ini
-|   |    |           ├── sqlConnector.py
-│   │    │    ├── PythonSparkJobs
-│   │    │      ├── __init__.py
-|   |    |      ├── ConfigFunction.py
-|   |    |      ├── DataIngestionAndTransformation.py
-|   ├── Transform_Data
+![image](https://github.com/Lbisen-max/Tokyo_Olymic2020/assets/79071673/190f8912-2e0f-46a4-8b79-9ae127fa8a66)
 
 
 
 ### Data Ingestion and Data Transformation using Pyspark
+
+
 
 
