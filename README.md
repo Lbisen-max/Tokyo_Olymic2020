@@ -44,7 +44,18 @@ After structure and quality Investigation it has observed that columns like 'bir
 
 
 
-### Data Ingestion and Data Transformation using Pyspark
+### Data Ingestion and Data Transformation using Pyspark (ETL)
+Imported spark on DataIngestionAndTransformation.py file and performed required transformed functions also. Created a config.ini file under projectconfig folder
+which contains required ingestion path and schema of the tables.
+
+After transformation data rewritten into local and MYSQL server for further analysis. additionaly , MYSQL serer connected with the PowerBI for visual data understanding.
+
+![image](https://github.com/Lbisen-max/Tokyo_Olymic2020/assets/79071673/a8f52cfd-f3f5-4e99-affa-a88f6f549aec)
+![image](https://github.com/Lbisen-max/Tokyo_Olymic2020/assets/79071673/4ac166d4-3355-43ea-807b-2f6c14ae677d)
+![image](https://github.com/Lbisen-max/Tokyo_Olymic2020/assets/79071673/7bb3b00f-3a10-47b6-b10d-d7b4a359d7ce)
+![image](https://github.com/Lbisen-max/Tokyo_Olymic2020/assets/79071673/7e1ce3dc-9892-440e-9e01-b5b29c0e0b8b)
+
+
 
 
 
